@@ -23,7 +23,7 @@ vector<vector<int>> intervalIntersection(vector<vector<int>>& first, vector<vect
     int n = first.size(), m =second.size();
 
     while(i<n && j<m) {
-        int low = max(first[i][0],second[j][0]);
+        int low  = max(first[i][0],second[j][0]);
         int high = min(first[i][1],second[j][1]);
         
         if(low<=high) res.push_back({low,high});

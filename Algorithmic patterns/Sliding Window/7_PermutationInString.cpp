@@ -51,6 +51,10 @@ int main() {
     return 0;
 }
 
+
+
+
+
 //OPTIMIZED:
 
 bool check(string s1, string s2) {

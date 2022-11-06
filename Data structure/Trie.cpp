@@ -11,11 +11,10 @@ TrieNode* getNewNode(void) {
 	pNode->isEndOfWord = false;
 
 	for (int i = 0; i < 26; i++) pNode->children[i] = NULL;
-
 	return pNode;
 }
 
-void insert(struct TrieNode *root, string key) {
+void insert(TrieNode *root, string key) {
 	TrieNode *node = root;
 
 	for (int i = 0; i < key.length(); i++) {
@@ -28,9 +27,9 @@ void insert(struct TrieNode *root, string key) {
 	node->isEndOfWord = true;
 }
 
-bool search(struct TrieNode *root, string key)
+bool search(TrieNode *root, string key)
 {
-	struct TrieNode *node = root;
+	TrieNode *node = root;
 
 	for (int i = 0; i < key.length(); i++) {
 		int index = key[i] - 'a';
