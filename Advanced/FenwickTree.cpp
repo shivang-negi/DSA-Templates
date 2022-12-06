@@ -1,6 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Fenwick tree works for only works for inverse operations. It won't work for finding 
+// max or min in a range. Because we can't do (max(0-left) merge max(0-right)).
+
 vector<int> bit;
 
 void updateUtil(int n,int ind, int delta){

@@ -4,52 +4,52 @@ using namespace std;
 vector<int> tree;
 
 inline int merge(int a, int b) {    //To get range sum
-    return a+b;                     //For max, use max(a,b) 
+    return max(a,b);                     //For max, use max(a,b) 
 }
 
-void buildSegTree(vector<int>& arr, int treeIndex, int lo, int hi) {
-    if (lo == hi) {  // leaf node
-        tree[treeIndex] = arr[lo];
+void buildSegTree(vector<int>& arr, int node, int lo, int hi) {
+    if (lo == hi) {  
+        tree[node] = arr[lo];
         return;
     }
     int mid = lo + (hi - lo) / 2;  
-    buildSegTree(arr, 2 * treeIndex + 1, lo, mid);
-    buildSegTree(arr, 2 * treeIndex + 2, mid + 1, hi);
-    tree[treeIndex] = merge(tree[2 * treeIndex + 1], tree[2 * treeIndex + 2]);
+    buildSegTree(arr, 2 * node + 1, lo, mid);
+    buildSegTree(arr, 2 * node + 2, mid + 1, hi);
+    tree[node] = merge(tree[2 * node + 1], tree[2 * node + 2]);
 }
 
-int querySegTree(int treeIndex, int lo, int hi, int i, int j) {
+int querySegTree(int node, int lo, int hi, int i, int j) {
     // query for arr[i..j]
 
     if (lo > j || hi < i) return 0;     // If segment completely outside range
     
-    if (i <= lo && j >= hi) return tree[treeIndex]; // If segment completely inside range
+    if (i <= lo && j >= hi) return tree[node]; // If segment completely inside range
 
     int mid = lo + (hi - lo) / 2;       // partial overlap of current segment
 
-    if (i > mid) return querySegTree(2 * treeIndex + 2, mid + 1, hi, i, j);
-    else if (j <= mid) return querySegTree(2 * treeIndex + 1, lo, mid, i, j);
+    if (i > mid) return querySegTree(2 * node + 2, mid + 1, hi, i, j);
+    else if (j <= mid) return querySegTree(2 * node + 1, lo, mid, i, j);
 
-    int leftQuery = querySegTree(2 * treeIndex + 1, lo, mid, i, mid);
-    int rightQuery = querySegTree(2 * treeIndex + 2, mid + 1, hi, mid + 1, j);
+    int leftQuery = querySegTree(2 * node + 1, lo, mid, i, mid);
+    int rightQuery = querySegTree(2 * node + 2, mid + 1, hi, mid + 1, j);
     return merge(leftQuery, rightQuery);
 }
 
-void updateValSegTree(int treeIndex, int lo, int hi, int arrIndex, int val) {
+void updateValSegTree(int node, int lo, int hi, int arrIndex, int val) {
     if (lo == hi) {                 // leaf node. update element.
-        tree[treeIndex] = val;
+        tree[node] = val;
         return;
     }
 
     int mid = lo + (hi - lo) / 2;   // recurse deeper for appropriate child
 
     if (arrIndex > mid)
-        updateValSegTree(2 * treeIndex + 2, mid + 1, hi, arrIndex, val);
+        updateValSegTree(2 * node + 2, mid + 1, hi, arrIndex, val);
     else if (arrIndex <= mid)
-        updateValSegTree(2 * treeIndex + 1, lo, mid, arrIndex, val);
+        updateValSegTree(2 * node + 1, lo, mid, arrIndex, val);
 
     // merge updates
-    tree[treeIndex] = merge(tree[2 * treeIndex + 1], tree[2 * treeIndex + 2]);
+    tree[node] = merge(tree[2 * node + 1], tree[2 * node + 2]);
 }
 
 int main() {
