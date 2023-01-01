@@ -1,6 +1,14 @@
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
+
+//lambda
+void solve(vector<int>& arr, int x) {
+    int n = arr.size();
+    sort(arr.begin(),arr.end(), [x](const int a, const int b) {
+        return abs(a-x) < abs(b-x);
+    });
+    return;
+}
 
 int partition(int arr[], int low, int high)
 {

@@ -16,7 +16,7 @@ void dfs(int node,vector<int>&vis,vector<int>adj[],vector<int> &storeNode) {
             dfs(x,vis,adj,storeNode);
     }
 }
-
+ 
 vector<int> sove(vector<int>adj[], int V) {
     vector<int> vis(V+1,0);
     vector<int> storeNode;

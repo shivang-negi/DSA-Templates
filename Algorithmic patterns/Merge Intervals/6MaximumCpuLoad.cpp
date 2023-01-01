@@ -29,7 +29,7 @@ int max_load(vector<vector<int>> arr) {
     int currentCPULoad = 0;
     priority_queue<vector<int>, vector<vector<int>>, endCompare> minHeap;
     for (auto job : arr) {
-            // Loop to remove all jobs from the heap which is ended
+            // Loop to remove all jobs from the heap which have ended
             // Loop when the stack is not empty and start time of current job is lesser
             // than the job in front of the queue
             while (!minHeap.empty() && job[0] > minHeap.top()[1]) {

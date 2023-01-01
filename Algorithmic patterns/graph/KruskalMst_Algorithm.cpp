@@ -24,12 +24,8 @@ int findPar(int u, vector<int> &parent) {
 void unionn(int u, int v, vector<int> &parent, vector<int> &rank) {
     u = findPar(u, parent);
     v = findPar(v, parent);
-    if(rank[u] < rank[v]) {
-    	parent[u] = v;
-    }
-    else if(rank[v] < rank[u]) {
-    	parent[v] = u; 
-    }
+    if(rank[u] < rank[v]) parent[u] = v;
+    else if(rank[v] < rank[u]) parent[v] = u; 
     else {
     	parent[v] = u;
     	rank[u]++; 
