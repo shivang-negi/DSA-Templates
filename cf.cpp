@@ -8,24 +8,7 @@ inline void no() {cout<<"NO\n";}
 inline void yes() {cout<<"YES\n";} 
 
 void solve() {
-	int n,k;
-	cin>>n>>k;
-	if(k==1) {
-		for(int i=1;i<=n;i++) cout<<i<<" ";
-		cout<<"\n";
-		return;
-	}
-	int x = n, y = 1;
-	while(true) {
-		for(int i=0;i<k-1;i++) {
-			if(y>x) break;
-			cout<<x<<" ";
-			x--;
-		}
-		if(y>x) break;
-		cout<<y<<" ";y++;
-	}
-	cout<<"\n";
+	
 }
 
 int main() {
