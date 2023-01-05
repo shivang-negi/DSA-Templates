@@ -1,14 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int mod = 1e9 + 7;
+long long mod = 1e9 + 7;
 long long gcd(long long a, long long b);
 long long upper_bound(long long arr[], long long n, long long x);
+bool isPrime(long long n);
 inline void no() {cout<<"NO\n";}
 inline void yes() {cout<<"YES\n";} 
 
 void solve() {
-	
+	cout<<5<<endl;	
 }
 
 int main() {
@@ -23,6 +24,13 @@ int main() {
 	return 0;
 }
 
+
+bool isPrime(long long n) {
+    for (long long i = 2; i*i <= n; i++)
+        if (n % i == 0)
+            return false;
+    return true;
+}
 long long gcd(long long a, long long b) {
 	return b == 0 ? a : gcd(b, a % b);}
 long long upper_bound(long long arr[], long long n, long long x) { 
