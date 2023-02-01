@@ -1,0 +1,10 @@
+ms.find(x) // x is an integer, returns an iterator
+
+ms.upper_bound(x) // upper_bound is greater than
+
+ms.lower_bound(x) // lower_bound is greater than or equal to
+
+ms.insert(x) // insert x
+
+ms.erase(x) // if x is an interger, delete an values of x
+               if x is an iterator, delete that particular value

@@ -17,4 +17,19 @@ class Solution
         }
         return dp[n][W];
     }
+
+    //Max optimized
+    int KnapSack(int val[], int wt[], int n, int W) {
+        int dp[W + 1];
+        memset(dp, 0, sizeof(dp));
+    
+       for(int i=0;i<n;i++) {
+            for(int j=1;j<=x;j++) {
+                if(j>=val[i])
+                    dp[j] = max(dp[j],val[i] + dp[j-wt[i]]);
+            }
+        }
+
+        return dp[W];
+    }
 };

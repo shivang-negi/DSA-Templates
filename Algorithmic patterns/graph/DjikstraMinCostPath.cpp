@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-// #define pair<int,pair<int,int>> pii
+// #define pii pair<int,pair<int,int>>
 int minimumCostPath(vector<vector<int>>& grid) 
 {
     int n=grid.size();
