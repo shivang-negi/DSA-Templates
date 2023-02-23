@@ -26,6 +26,22 @@ int first_true(int lo, int hi, function<bool(int)> f) {
 	return lo;
 }
 
+void findX(int targetValue) {
+    int start = 0, end = targetValue;
+    int mid, result;
+ 
+    while (start <= end) {
+        mid = start + (end - start) / 2;
+
+        if (mid * mid <= targetValue) {		//	f(x) = x * x
+            result = mid;
+            start = mid + 1;
+        }
+        else end = mid - 1;
+    }
+    cout << result << endl;
+}
+
 int main() {
     return 0;
 }

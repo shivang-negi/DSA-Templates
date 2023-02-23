@@ -1,8 +1,7 @@
 #include <iostream>
 using namespace std;
  
-int KMP(string text, string pattern)
-{
+int KMP(string text, string pattern) {
     int m = text.length();
     int n = pattern.length();
  

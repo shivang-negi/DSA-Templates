@@ -63,6 +63,6 @@ int main() {
     updateValSegTree(0,0,n-1,3,8);
     cout<<querySegTree(0,0,n-1,1,4)<<" ";
     cout<<querySegTree(0,0,n-1,0,3)<<" ";
-    cout<<querySegTree(0,0,n-1,4,5);
+    cout<<querySegTree(0,0,n-1,0,5);
     return 0;
 }

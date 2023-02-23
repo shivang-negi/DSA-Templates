@@ -10,6 +10,27 @@ void solve(vector<int>& arr, int x) {
     return;
 }
 
+//Comparator for multiset & priority queue
+void compare() {
+    
+    //Could be any class template (pair, struct, vector)
+    auto cmp = [](const pair<int,int> &x, const pair<int,int> &y) { 
+        if(x.first==y.first) return x.second < y.second ;
+        return x.first > y.first; 
+    };
+
+    auto cmp2 = [](const pair<int,int> &x, const pair<int,int> &y) { 
+        return x.second < y.second; 
+    };
+    
+    multiset<pair<int,int>, decltype(cmp)> valid(cmp);
+    multiset<pair<int,int>, decltype(cmp2)> invalid(cmp2);
+
+    
+    priority_queue<pair<int,int>,vector<pair<int,int>>,decltype(cmp)> pq(cmp);
+}
+
+//Quicksort
 int partition(int arr[], int low, int high)
 {
     int i = low;

@@ -1,5 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
+
+//Shortest path algorithm
+//Works with negative weight edges, unlike djikstra's
+//finds the shortest paths from src to all vertices in the given graph
+
 struct node {
     int u;
     int v;
@@ -21,6 +26,7 @@ int main(){
 	edges.push_back(node(3,2,6));
 	edges.push_back(node(3,4,-2));
 	edges.push_back(node(5,3,1));
+    
     int src=0;
     int inf = 10000000; 
     vector<int> dist(N, inf); 

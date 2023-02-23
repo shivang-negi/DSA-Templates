@@ -1,6 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+bool isPrime(long long n) {
+    for (long long i = 2; i*i <= n; i++)
+        if (n % i == 0)
+            return false;
+    return true;
+}
+
 //print all prime factors of a number
 //O(logn) for composite numbers, O(n) otherwise
 void primeFactors(int n) {
@@ -21,7 +28,7 @@ void primeFactors(long long n) {
         n = n/2;
     }
  
-    for (int i = 3; i <= sqrt(n); i = i + 2) {
+    for (int i = 3; (i*i) <= n; i = i + 2) {
         while (n % i == 0) {
             cout << i << " ";
             n = n/i;
