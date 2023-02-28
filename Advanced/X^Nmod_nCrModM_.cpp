@@ -37,6 +37,8 @@ unsigned long long modInverse(unsigned long long n,int p) {
 	return power(n, p - 2, p);
 }
 
+// Returns nCr % p using Fermat's little
+// theorem.
 unsigned long long nCrModPFermat(unsigned long long n, int r, int p) {
 	if (n < r)
 		return 0;

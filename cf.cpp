@@ -12,32 +12,7 @@ inline long long clear_bit(long long n, long long k) {return (n & (~(1<<k)));}
 long long lcm(long long a, long long b){return a / __gcd(a, b) * b;}
 
 void solve() {
-	ll n,k;
-	cin>>n>>k;
 	
-	vector<pair<ll,ll>> arr(n,{0,0});
-	for(ll i=0;i<n;i++) cin>>arr[i].first;
-	for(ll i=0;i<n;i++) cin>>arr[i].second;
-
-	sort(arr.begin(),arr.end(),[](pair<ll,ll>&x, pair<ll,ll>&y) {
-		if((x.first + x.second) == (y.first + y.second)) {
-			return x.second < y.second;
-		}
-		return (x.first + x.second) < (y.first + y.second); 
-	});
-
-	ll ans = 0, cur = 0;
-	for(ll i=0;i<n;i++) {
-		if((cur+arr[i].first) > k) {
-			ll mn = arr[i].first;
-			for(ll j=i;j<n;j++) mn = min(mn,arr[j].first);
-			if((cur+mn)<=k) ans++;
-			break;
-		}
-		cur+=(arr[i].first+arr[i].second);
-		ans++;
-	}
-	cout<<ans<<"\n";
 }
 
 int main() {
@@ -47,11 +22,11 @@ int main() {
 		freopen("input.txt" ,"r", stdin);
 		freopen("output.txt","w",stdout);
     #endif
-	// #ifndef ONLINE_JUDGE
-	// freopen("circlecross.in" ,"r", stdin);
-	// freopen("circlecross.out","w",stdout);
-	// #endif
 	int t;cin>>t;while(t--)
 		solve();
+	// #ifndef ONLINE_JUDGE
+	// freopen("guess.in" ,"r", stdin);
+	// freopen("guess.out","w",stdout);
+	// #endif
 	return 0;
 }

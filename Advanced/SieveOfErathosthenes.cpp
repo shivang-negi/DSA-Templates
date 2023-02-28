@@ -8,19 +8,6 @@ bool isPrime(long long n) {
     return true;
 }
 
-//print all prime factors of a number
-//O(logn) for composite numbers, O(n) otherwise
-void primeFactors(int n) {
-	int c=2;
-	while(n>1) {
-		if(n%c==0) {
-            cout<<c<<" ";
-            n/=c;
-		}
-		else c++;
-	}
-}
-
 //print all prime factors of a number O(sqrt n)
 void primeFactors(long long n) {
     while (n % 2 == 0) {

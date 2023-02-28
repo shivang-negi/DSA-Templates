@@ -3,8 +3,8 @@ using namespace std;
 
 vector<int> tree;
 
-inline int merge(int a, int b) {    //To get range sum
-    return max(a,b);                     //For max, use max(a,b) 
+inline int merge(int a, int b) {  
+    return max(a,b);               
 }
 
 void buildSegTree(vector<int>& arr, int node, int lo, int hi) {
