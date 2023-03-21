@@ -23,6 +23,24 @@ void combine (int u, int v) {
     }
 }
 
+/*
+    int n,m;
+	cin>>n>>m;
+	parent.resize(n);
+	size.resize(n,0);
+	for(int i=0;i<n;i++) parent[i] = i;
+	
+	int a,b;
+	for(int i=0;i<m;i++) {
+		cin>>a>>b;
+		int p1 = find(a-1);
+		int p2 = find(b-1);
+
+		combine(p1,p2);
+	}
+	for(int i=0;i<n;i++) find(i);   //To get parent of each component
+*/
+
 int main() {
 
     return 0;

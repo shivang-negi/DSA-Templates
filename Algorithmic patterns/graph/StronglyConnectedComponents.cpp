@@ -1,62 +1,118 @@
 #include <bits/stdc++.h>
 using namespace std;
-void dfs(int node, stack<int> &st, vector<int> &vis, vector<int> adj[]) {
-    vis[node] = 1; 
-    for(auto it: adj[node]) {
-        if(!vis[it]) {
-            dfs(it, st, vis, adj); 
-        }
-    }
-    
-    st.push(node); 
+
+/*
+A strongly connected component is the portion of a directed graph in which 
+there is a path from each vertex to another vertex. It is applicable only on 
+a directed graph.
+*/
+
+class Graph {
+  int V;
+  list<int> *adj;
+  void fillOrder(int s, bool visitedV[], stack<int> &Stack);
+  void DFS(int s, bool visitedV[],vector<vector<int>>&ans, int index);
+
+   public:
+  Graph(int V);
+  void addEdge(int s, int d);
+  vector<vector<int>> getSCC();
+  Graph transpose();
+};
+
+Graph::Graph(int V) {
+  this->V = V;
+  adj = new list<int>[V];
 }
-void revDfs(int node, vector<int> &vis, vector<int> transpose[]) {
-    cout << node << " "; 
-    vis[node] = 1; 
-    for(auto it: transpose[node]) {
-        if(!vis[it]) {
-            revDfs(it, vis, transpose); 
-        }
-    }
+
+// DFS
+void Graph::DFS(int s, bool visitedV[], vector<vector<int>> &arr, int index) {
+  visitedV[s] = true;
+  arr[index].push_back(s);
+
+  list<int>::iterator i;
+  for (i = adj[s].begin(); i != adj[s].end(); ++i)
+    if (!visitedV[*i])
+      DFS(*i, visitedV,arr,index);
 }
+
+// Transpose
+Graph Graph::transpose() {
+  Graph g(V);
+  for (int s = 0; s < V; s++) {
+    list<int>::iterator i;
+    for (i = adj[s].begin(); i != adj[s].end(); ++i) {
+      g.adj[*i].push_back(s);
+    }
+  }
+  return g;
+}
+
+// Add edge into the graph
+void Graph::addEdge(int s, int d) {
+  adj[s].push_back(d);
+}
+
+void Graph::fillOrder(int s, bool visitedV[], stack<int> &Stack) {
+  visitedV[s] = true;
+
+  list<int>::iterator i;
+  for (i = adj[s].begin(); i != adj[s].end(); ++i)
+    if (!visitedV[*i])
+      fillOrder(*i, visitedV, Stack);
+
+  Stack.push(s);
+}
+
+// Print strongly connected component
+vector<vector<int>> Graph::getSCC() {
+  stack<int> Stack;
+  vector<vector<int>> ans;
+  int index = -1;
+
+  bool *visitedV = new bool[V];
+  for (int i = 0; i < V; i++)
+    visitedV[i] = false;
+
+  for (int i = 0; i < V; i++)
+    if (visitedV[i] == false)
+      fillOrder(i, visitedV, Stack);
+
+  Graph gr = transpose();
+
+  for (int i = 0; i < V; i++)
+    visitedV[i] = false;
+
+  while (Stack.empty() == false) {
+    int s = Stack.top();
+    Stack.pop();
+
+    if (visitedV[s] == false) {
+		ans.push_back({});
+		index++;
+    	gr.DFS(s, visitedV,ans,index);
+    }
+  }
+  return ans;
+}
+
 int main() {
-    int n=6, m=7;
-	vector<int> adj[n+1]; 
-	adj[1].push_back(3);
-	adj[2].push_back(1);
-	adj[3].push_back(2);
-	adj[3].push_back(5);
-	adj[4].push_back(6);
-	adj[5].push_back(4);
-	adj[6].push_back(5);
-	
-	stack<int> st;
-	vector<int> vis(n+1, 0); 
-	for(int i = 1;i<=n;i++) {
-	    if(!vis[i]) {
-	        dfs(i, st, vis, adj); 
-	    }
-	} 
-	
-	vector<int> transpose[n+1]; 
-	
-	for(int i = 1;i<=n;i++) {
-	    vis[i] = 0; 
-	    for(auto it: adj[i]) {
-	        transpose[it].push_back(i); 
-	    }
-	}
-	
-	
-	
-	while(!st.empty()) {
-	    int node = st.top();
-	    st.pop(); 
-	    if(!vis[node]) {
-	        cout << "SCC: "; 
-	        revDfs(node, vis, transpose); 
-	        cout << endl; 
-	    }
+    Graph g(8);
+	g.addEdge(0, 1);
+	g.addEdge(1, 2);
+	g.addEdge(2, 3);
+	g.addEdge(2, 4);
+	g.addEdge(3, 0);
+	g.addEdge(4, 5);
+	g.addEdge(5, 6);
+	g.addEdge(6, 4);
+	g.addEdge(6, 7);
+
+  vector<vector<int>> arr = g.getSCC();
+	for(auto  x: arr) {
+		for(auto y: x) {
+			cout<<y<<" ";
+		}cout<<"\n";
 	}
 	return 0;
 }

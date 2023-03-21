@@ -1,82 +1,62 @@
 #include <iostream>
 using namespace std;
  
-int KMP(string text, string pattern) {
-    int m = text.length();
-    int n = pattern.length();
- 
-    if (n == 0) return 1;
-    if (m < n) return 0;
+void LPSArray(string pattern, int M, int* lps) {
 
-    int next[n + 1];
-    for (int i = 0; i < n + 1; i++) next[i] = 0;
-    
-    for (int i = 1; i < n; i++) {
-        int j = next[i + 1];
-        while (j > 0 && pattern[j] != pattern[i]) j = next[j];
-        if (j > 0 || pattern[j] == pattern[i]) next[i + 1] = j + 1;
-    }
- 
-    for (int i = 0, j = 0; i < m; i++) {
-        if (text[i] == pattern[j]) {
-            if (++j == n)
-                return 1;
+    int len = 0;
+    lps[0] = 0; 
+    int i = 1;
+    while (i < M) {
+        if (pattern[i] == pattern[len]) {
+            len++;
+            lps[i] = len;
+            i++;
         }
-        else if (j > 0) {
-            j = next[j];
-            i--;  
+        else {
+            if (len != 0) len = lps[len - 1];
+            else {
+                lps[i] = 0;
+                i++;
+            }
         }
     }
-    return 0;
+}
+
+int KMP(string pattern, string txt) {
+    int M = pattern.size();
+    int N = txt.size();
+
+    int lps[M];
+    LPSArray(pattern, M, lps);
+
+    int i = 0; 
+    int j = 0; 
+    while ((N - i) >= (M - j)) {
+        if (pattern[j] == txt[i]) {
+            j++;
+            i++;
+        }
+        if (j == M) {
+            //printf("Found pattern at index %d ", i - j);
+            return i - j;
+            j = lps[j - 1];
+        }
+
+        else if (i < N && pattern[j] != txt[i]) {
+            if (j != 0)
+                j = lps[j - 1];
+            else
+                i = i + 1;
+        }
+    }
+    return -1;
 }
  
-int main()
-{
+int main() {
     string text = "ABCABAABCABAC";
     string pattern = "CAB";
  
-    cout<<KMP(text, pattern);
+    cout<<KMP(pattern, text);
  
     return 0;
-}
-
-
-// KMP to print all the indexes where substring is found
-void KMP(string text, string pattern)
-{
-    int m = text.length();
-    int n = pattern.length();
- 
-    if (n == 0) {
-        cout << "The pattern occurs with shift 0";
-        return;
-    }
- 
-    if (m < n) {
-        cout << "Pattern not found";
-        return;
-    }
- 
-    int next[n + 1];
-    for (int i = 0; i < n + 1; i++) 
-        next[i] = 0;
- 
-    for (int i = 1; i < n; i++)
-    {
-        int j = next[i + 1];
-        while (j > 0 && pattern[j] != pattern[i]) j = next[j];
-        if (j > 0 || pattern[j] == pattern[i]) next[i + 1] = j + 1;
-        
-    }
- 
-    for (int i = 0, j = 0; i < m; i++) {
-        if (text[i] == pattern[j]) {
-            if (++j == n) 
-                cout << "The pattern occurs with shift " << i - j + 1 << endl;
-        }
-        else if (j > 0) {
-            j = next[j];
-            i--;    
-        }
-    }
 }

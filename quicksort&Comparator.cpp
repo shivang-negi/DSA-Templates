@@ -31,45 +31,36 @@ void compare() {
 }
 
 //Quicksort
-int partition(int arr[], int low, int high)
-{
-    int i = low;
-    int j = high;
-    int pivot = arr[low];
-    while (i < j)
-    {
-        while (pivot>=arr[i]) i++;
-        while (pivot<arr[j]) j--;
-        if (i < j) swap(arr[i], arr[j]);
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high]; 
+    int i = (low - 1); 
+ 
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++; 
+            swap(arr[i], arr[j]);
+        }
     }
-    swap(arr[low], arr[j]);
-    return j;
+    swap(arr[i + 1], arr[high]);
+    return (i + 1);
 }
 
-void quickSort(int arr[], int low, int high)
-{
-    if (low < high)
-    {
-    int pivot = partition(arr, low, high);
-    quickSort(arr, low, pivot - 1);
-    quickSort(arr, pivot + 1, high);
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
     }
 }
 
-void printArray(int arr[], int size)
-{
-    for (int i = 0; i < size; i++)
-        cout << arr[i] << " ";
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) cout << arr[i] << " ";
     cout << endl;
 }
 
-int main()
-{
+int main() {
     int arr[] = {4, 2, 8, 3, 1, 5, 7,11,6};
     int size = sizeof(arr) / sizeof(int);
-
-    int temp[2] = {2,1};
-    cout<<partition(temp,0,1);
 
     cout<<"Before Sorting"<<endl;
     printArray(arr, size);

@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 //Removing a link results in a disconnected graph.
 void dfs(int node, int parent, vector<int> &vis, vector<int> &tin, vector<int> &low, int &timer, vector<int> adj[])
 {
