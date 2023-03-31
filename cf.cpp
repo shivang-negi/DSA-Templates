@@ -9,7 +9,7 @@ inline void dbg() { cout << "here\n"; }
 inline long long get_bit(long long num, long long n) { return (1 & (num >> n)); }
 inline long long set_bit(long long n, long long k) { return (n | (1 << k)); }
 inline long long clear_bit(long long n, long long k) { return (n & (~(1 << k))); }
-long long lcm(long long a, long long b) { return ((a * b) / __gcd(a, b)); }
+long long lcm(long long a, long long b) { return a / __gcd(a, b) * b; }
 
 void solve() {
 	
@@ -22,8 +22,8 @@ int main() {
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 	#endif
-	// freopen("angry.in" ,"r", stdin);
-	// freopen("angry.out","w",stdout);
+	// freopen("div7.in" ,"r", stdin);
+	// freopen("div7.out","w",stdout);
 	int t;cin>>t;while(t--)
 	solve();
 	return 0;

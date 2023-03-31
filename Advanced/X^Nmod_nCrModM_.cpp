@@ -57,7 +57,7 @@ unsigned long long nCrModPFermat(unsigned long long n, int r, int p) {
 
 
 
-//Function to calculate facorial%m
+//Function to calculate facorial%p
 int power(int x, unsigned int y, int p) {
     int res = 1; 
     x = x % p; 

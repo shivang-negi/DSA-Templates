@@ -1,6 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+/*
+(a + b) % p = (a % p + b % p) % p
+(a * b) % p = (a % p * b % p) % p
+(a - b) mod p = ((a mod p - b mod p) + p) mod p
+(a / b) mod p = ((a mod p) * (b^(-1) mod p)) mod p
+
+Where b^(-1) mod p is the modular inverse of b mod p.
+For p = prime, b^(-1) mod p = b^(p - 2) mod p.
+*/
+
+//Modular Inverse recursively
+int inv(int i, int m) {
+  return i <= 1 ? i : m - (long long)(m/i) * inv(m % i) % m;
+}
+
 //when gcd of A and M is 1
 int modInverse(int A, int M) {
     int m0 = M;

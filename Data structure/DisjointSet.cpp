@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+vector<int> sz,parent;
+
 int find(int u) {
     if(u == parent[u]) return u;
     return parent[u] = find(parent[u]);
@@ -12,22 +14,22 @@ void combine (int u, int v) {
     
     if(u == v) return;   
     else {
-        if(size[u] > size[v]) {
+        if(sz[u] > sz[v]) {
             parent[v] = u;
-            size[u] += size[v];
+            sz[u] += sz[v];
         }
         else {
             parent[u] = v;
-            size[v] += size[u];
+            sz[v] += sz[u];
         }
     }
 }
 
-/*
+int main() {
     int n,m;
 	cin>>n>>m;
 	parent.resize(n);
-	size.resize(n,0);
+	sz.resize(n,0);
 	for(int i=0;i<n;i++) parent[i] = i;
 	
 	int a,b;
@@ -39,9 +41,5 @@ void combine (int u, int v) {
 		combine(p1,p2);
 	}
 	for(int i=0;i<n;i++) find(i);   //To get parent of each component
-*/
-
-int main() {
-
     return 0;
 }
