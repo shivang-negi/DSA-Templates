@@ -1,66 +1,72 @@
-#include<bits/stdc++.h>
-using namespace std;       
-//For undirected only
-void dfs(int src, int parent, vector <int> &s, int vis[], vector <vector <int>> &graph){
-	vis[src] = 1;
-	s.push_back(src);
-	for(auto &x: graph[src]){
-		if(vis[x] == 0){
-			dfs(x,src,s,vis,graph);
-		}
-		else if(vis[x] == 1){
-			if(x != parent){
-				cout << "cycle \n";
-				cout << x << " ";
-				int pos = ((int)s.size())-1;
-				while(pos >= 0 && s[pos] != x){
-					cout << s[pos] << " ";
-					--pos;
-				}
-				cout << "\n";
-			}
-		}
-	}
-	vis[src] = 2;
-	s.pop_back();
+#include <bits/stdc++.h>
+using namespace std;
+
+//Prints atmost one cycle
+
+const int MAXN = 100005;
+ 
+vector<int> adj[MAXN];
+int vis[MAXN], parent[MAXN], cycle_start, cycle_end;
+ 
+bool dfs(int u) {
+    vis[u] = 1;
+    for (int v : adj[u]) {
+        if (vis[v] == 0) {
+            parent[v] = u;
+            if (dfs(v)) {
+                return true;
+            }
+        } else if (vis[v] == 1 && parent[u] != v) {
+            cycle_start = v;
+            cycle_end = u;
+            return true;
+        }
+    }
+    vis[u] = 2;
+    return false;
 }
-
-int main(){
-  int n,m;
-  cin >> n >> m;
-  vector <vector <int>> graph(n);
-  for(int i = 0; i < m; ++i){
-	  int a,b;
-	  cin >> a >> b;
-	  graph[a].push_back(b);
-	  graph[b].push_back(a);
-  }
-  int vis[n] = {0};
-  vector <int> s;
-  for(int i = 0; i < n; ++i){
-	  if(vis[i] == 0){
-		  dfs(i,-1,s,vis,graph);
-	  }
-  }
+ 
+void find_cycle(int n) {
+    for (int u = 1; u <= n; u++) {
+        if (vis[u] == 0) {
+            if (dfs(u)) {
+                return;
+            }
+        }
+    }
 }
+ 
+int main() {
+    #ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+    int n, m;
+    cin >> n >> m; 
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    memset(vis, 0, sizeof(vis));
+    cycle_start = -1;
+	
+    find_cycle(n);
 
-//Sample Input
-
-//12 13
-//0 1 
-//1 2 
-//2 3
-//3 4
-//4 5
-//5 6
-//6 7
-//7 8
-//8 5
-//5 9
-//9 10
-//10 11
-//11 3
-
-/*
-1->2->3->4->5->4
-*/
+    if (cycle_start == -1) cout << "NO CYCLE" << endl;
+	else {
+        vector<int> cycle;
+        cycle.push_back(cycle_start);
+        int x = cycle_end;
+        while (x != cycle_start) {
+            cycle.push_back(x);
+            x = parent[x];
+        }
+        cycle.push_back(cycle_start);
+        cout<<cycle.size()<<"\n";
+        for (int i = cycle.size() - 1; i >= 0; i--) 
+            cout << cycle[i] << " ";
+    }
+    return 0;
+}

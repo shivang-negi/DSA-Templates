@@ -7,13 +7,12 @@ const int N = 100000;
 vector<int> graph[N];
 vector<vector<int>> cycles;
 
-void dfs_cycle(int u, int p, int color[], int par[], int& cyclenumber) {
+void dfs_cycle(int u, int p, int color[], int par[]) {
 	if (color[u] == 2) {
 		return;
 	}
 	if (color[u] == 1) {
 		vector<int> v;
-		cyclenumber++;
 		
 		int cur = p;
 		v.push_back(cur);
@@ -32,7 +31,7 @@ void dfs_cycle(int u, int p, int color[], int par[], int& cyclenumber) {
 		if (v == par[u]) {
 			continue;
 		}
-		dfs_cycle(v, u, color, par, cyclenumber);
+		dfs_cycle(v, u, color, par);
 	}
 
 	color[u] = 2;
@@ -43,9 +42,9 @@ void addEdge(int u, int v) {
 	graph[v].push_back(u);
 }
 
-void printCycles(int& cyclenumber)
+void printCycles()
 {
-	for (int i = 0; i < cyclenumber; i++) {
+	for (int i = 0; i < cycles.size(); i++) {
 		cout << "Cycle Number " << i + 1 << ": ";
 		for (int x : cycles[i])
 			cout << x << " ";
@@ -55,29 +54,22 @@ void printCycles(int& cyclenumber)
 
 int main() {
 	addEdge(1, 2);
-	addEdge(2, 3);
-	addEdge(3, 4);
-	addEdge(4, 6);
-	addEdge(4, 7);
-	addEdge(5, 6);
+	addEdge(1, 3);
 	addEdge(3, 5);
-	addEdge(7, 8);
-	addEdge(6, 10);
-	addEdge(5, 9);
-	addEdge(10, 9);
-	addEdge(10, 11);
-	addEdge(11, 12);
-	addEdge(11, 13);
-	addEdge(12, 13);
+	addEdge(1, 5);
+	addEdge(2, 4);
+	addEdge(4, 5);
 
 	int color[N];
 	int par[N];
 
-	int cyclenumber = 0;
-	int edges = 6;
+	int start = 1, end = 5;
 
-	dfs_cycle(1, 0, color, par, cyclenumber);
-
-	printCycles(cyclenumber);
+	for(int i=start;i<=end;i++) {
+		if(color[i]==0) {
+			dfs_cycle(i, 0, color, par);
+		}
+	}
+	printCycles();
     return 0;
 }

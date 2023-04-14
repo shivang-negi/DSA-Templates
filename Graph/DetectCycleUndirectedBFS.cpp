@@ -28,13 +28,11 @@ public:
         }
         return false;
     }
-    bool isCycle(int V, vector<int> adj[])
-    {
+
+    bool isCycle(int V, vector<int> adj[]) {
         vector<int> vis(V - 1, 0);
-        for (int i = 1; i <= V; i++)
-        {
-            if (!vis[i])
-            {
+        for (int i = 1; i <= V; i++) {
+            if (!vis[i]) {
                 if (checkForCycle(i, V, adj, vis))
                     return true;
             }
