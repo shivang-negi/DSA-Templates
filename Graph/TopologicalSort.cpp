@@ -11,7 +11,6 @@ class Solution
         st.push(node);
     }
 
-public:
     vector<int> topoSort(int N, vector<int> adj[])
     {
         stack<int> st;

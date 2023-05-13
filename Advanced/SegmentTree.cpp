@@ -5,7 +5,7 @@ vector<int> tree;
 
 inline int merge(int a, int b) {  
     return max(a,b);               
-}
+} 
 
 void buildSegTree(vector<int>& arr, int node, int lo, int hi) {
     if (lo == hi) {  

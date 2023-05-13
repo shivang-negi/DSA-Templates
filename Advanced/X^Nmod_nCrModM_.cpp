@@ -16,7 +16,6 @@ long long modulo_expo(long long a, long long b, long long n){
 //END
 
 
-
 /* Iterative Function to calculate (x^y)%p
 in O(log y) */
 unsigned long long power(unsigned long long x,int y, int p) {

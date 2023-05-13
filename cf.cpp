@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
- 
+
 long long mod = 1e9 + 7;
 inline void no() { cout << "NO\n"; }
 inline void yes() { cout << "YES\n"; }
@@ -14,7 +14,7 @@ long long lcm(long long a, long long b) { return a / __gcd(a, b) * b; }
 void solve() {
 	
 }
- 
+
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
@@ -27,4 +27,4 @@ int main() {
 	int t;cin>>t;while(t--)
 	solve();
 	return 0;
-} 
+}

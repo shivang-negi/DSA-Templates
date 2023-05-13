@@ -22,7 +22,7 @@ public:
 };
 
 //O(nlogn)
-int lis(vector<int> const& a) {
+int lis(vector<int> &a) {
     int n = a.size();
     const int INF = 1e10;
     vector<int> d(n+1, INF);

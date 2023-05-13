@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 /*
 (a + b) % p = (a % p + b % p) % p
@@ -62,4 +63,57 @@ int main() {
     int A = 3, M = 11;
     cout<<"Modular multiplicative inverse is "<<modInverse(A, M);
     return 0;
+}
+
+// Find (P * inv(Q))%mod
+ll modinv(ll p, ll q, ll mod)
+{
+    ll ex=mod-2;
+    while (ex) {
+        if (ex & 1) {
+            p = (p * q) % mod;
+        }
+        q = (q * q) % mod;
+        ex>>= 1;
+    }
+    return p;
+}
+
+//template
+ll MOD = 1e9 + 7;
+
+ll add(ll x, ll y)
+{
+    return ((x + y) % MOD + MOD) % MOD;
+}
+
+ll sub(ll x, ll y) {
+    return (((x % MOD) - (y % MOD)) + MOD) % MOD;
+}
+
+ll mul(ll x, ll y)
+{
+    return x * 1ll * y % MOD;   
+}
+
+ll binpow(ll x, ll y)
+{
+    ll z = 1;
+    while(y)
+    {
+        if(y % 2 == 1) z = mul(z, x);
+        x = mul(x, x);
+        y /= 2;
+    }
+    return z;
+}
+
+ll inv(ll x)
+{
+    return binpow(x, MOD - 2);    
+}
+
+ll divide(ll x, ll y)
+{
+    return mul(x, inv(y));
 }

@@ -3,7 +3,7 @@
 using namespace std;
 
 class Solution {
-  private:
+  
     bool checkCycle(int node, vector < int > adj[], int vis[], int dfsVis[]) {
       vis[node] = 1;
       dfsVis[node] = 1;
@@ -17,7 +17,7 @@ class Solution {
       dfsVis[node] = 0;
       return false;
     }
-  public:
+    
     bool isCyclic(int N, vector <int> adj[]) {
       int vis[N], dfsVis[N];
       memset(vis, 0, sizeof vis);

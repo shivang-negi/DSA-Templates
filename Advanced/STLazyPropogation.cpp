@@ -7,7 +7,7 @@ using namespace std;
 vector<int> seg,lazy;
 
 void build(vector<int>& arr, int treeIndex, int lo, int hi) {
-    if (lo == hi) {  // leaf node
+    if (lo == hi) {  
         seg[treeIndex] = arr[lo];
         return;
     }
@@ -19,24 +19,24 @@ void build(vector<int>& arr, int treeIndex, int lo, int hi) {
 
 void update(int treeIndex, int lo, int hi, int i, int j, int val)
 {
-    if (lazy[treeIndex] != 0) {           // this node is lazy
-        seg[treeIndex]+=(hi-lo+1)*lazy[treeIndex]; //normalize node by removing laziness
+    if (lazy[treeIndex] != 0) {          
+        seg[treeIndex]+=(hi-lo+1)*lazy[treeIndex]; 
 
-        if (lo != hi) {         // update lazy[] for children nodes
+        if (lo != hi) {        
             lazy[2 * treeIndex + 1] += lazy[treeIndex];
             lazy[2 * treeIndex + 2] += lazy[treeIndex];
         }
 
-        lazy[treeIndex] = 0;         // current node processed. No longer lazy
+        lazy[treeIndex] = 0;       
     }
 
     if (lo > hi || lo > j || hi < i)
-        return;                   // out of range. escape.
+        return;                  
 
-    if (i <= lo && hi <= j) {              // segment is fully within update range
-        seg[treeIndex] += (hi - lo + 1) * val;      // update segment
+    if (i <= lo && hi <= j) {             
+        seg[treeIndex] += (hi - lo + 1) * val;   
 
-        if (lo != hi) {                     // update lazy[] for children
+        if (lo != hi) {                  
             lazy[2 * treeIndex + 1] += val;
             lazy[2 * treeIndex + 2] += val;
         }
@@ -56,18 +56,18 @@ void update(int treeIndex, int lo, int hi, int i, int j, int val)
 int query(int treeIndex, int lo, int hi, int i, int j)
 {
     // query for arr[i..j]
-    if (lo > j || hi < i)        //If segment completely outside range, return 0
+    if (lo > j || hi < i)     
         return 0;     
 
-    if (lazy[treeIndex] != 0) {                             // this node is lazy
-        seg[treeIndex] += (hi - lo + 1) * lazy[treeIndex]; // normalize current node by removing laziness
+    if (lazy[treeIndex] != 0) {                             
+        seg[treeIndex] += (hi - lo + 1) * lazy[treeIndex]; 
 
-        if (lo != hi) {                                     // update lazy[] for children nodes
+        if (lo != hi) {                                    
             lazy[2 * treeIndex + 1] += lazy[treeIndex];
             lazy[2 * treeIndex + 2] += lazy[treeIndex];
         }
 
-        lazy[treeIndex] = 0;                                // current node processed. No longer lazy
+        lazy[treeIndex] = 0;                             
     }
 
     if (i <= lo && j >= hi)                                 // segment completely inside range
@@ -83,7 +83,6 @@ int query(int treeIndex, int lo, int hi, int i, int j)
     int leftQuery = query(2 * treeIndex + 1, lo, mid, i, mid);
     int rightQuery = query(2 * treeIndex + 2, mid + 1, hi, mid + 1, j);
 
-    // merge query results
     return leftQuery + rightQuery;
 }
 // call this method as queryLazySegTree(0, 0, n-1, i, j);

@@ -23,7 +23,7 @@ int matrixMultiplication(int N, int arr[])
 }
 
 int main() {
-    int arr[] = {40,20,30,10,30};
-    cout<<matrixMultiplication(5,arr);
+    int arr[] = {1,2,3,4};
+    cout<<matrixMultiplication(4,arr);
     return 0;
 }
